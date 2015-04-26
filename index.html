@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Edward Lee - Web Developer</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+
+		<script src="js/jquery-1.11.2.min.js"></script>
+		<script src="js/three.min.js"></script>
+		<script src="js/renderers/Projector.js"></script>
+		<script src="js/renderers/CanvasRenderer.js"></script>
+		<script src="js/stats.min.js"></script>
+		<script src="js/tween.min.js"></script>
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<style>
+			html, body{
+				height:100%;
+				margin: 0px;
+				
+			}
+			small{
+				color:#000 !important;
+			}
+			hr{
+				background-color:#FFB03B;
+				height:2px;
+
+			}
+			.marginless-bottom{
+				margin-bottom: 0px;
+			}
+			.marginless-top{
+				margin-top: 0px;
+			}
+			.orange{
+				color:#8E2800;
+			}
+			.right{
+				float:right;
+			}
+			.html-resume{
+				max-width:1000px;
+				background-color:rgba(255,240,165,0.2);
+			}
+			.html-resume:hover{
+				background-color:rgba(255,240,165,0.8);
+			}
+			.canvas-container{
+				position:fixed;
+				top:0px;
+				z-index: -1;
+			}
+			.nav{
+				position: fixed;
+				top:50%;
+				z-index: 1;
+				-webkit-transform: translateY(-50%);
+				-ms-transform: translateY(-50%);
+				transform: translateY(-50%);
+			}
+			.container{
+				margin-left: 80px;
+				min-height:100%;
+			}
+			#home{
+				height:100%;
+			}
+			#home .jumbotron{
+				top:50%;
+				-webkit-transform: translateY(-50%);
+				-ms-transform: translateY(-50%);
+				transform: translateY(-50%);
+			}
+			.jumbotron{
+				padding-top:10px;
+				position: relative;
+				background:none;
+			}
+			#skillmap .skills-wrapper {
+				margin-top: 10px;
+				overflow: auto;
+			}
+			#skillmap .skills-sunburst {
+				float: left;
+				width: 500px;
+				margin-left: -50px;
+			}
+			#skillmap .skills-sunburst svg {
+				font: 10px 'Source Sans Pro', sans-serif;
+				font-weight: 900;
+				cursor: pointer;
+			}
+			#skillmap .skills-chart {
+				float: right;
+				font-family: 'Source Sans Pro', sans-serif;
+				font-size: 14px;
+				margin: 80px 20px 0 0;
+			}
+			#skillmap .skills-chart .breadcumb-text {
+				font-size: 12px;
+				font-weight: 700;
+			}
+			#skillmap .skills-chart #skills-chart-line {
+				fill: none;
+				stroke-width: 3.5px;
+			}
+			#skillmap .skills-chart .axis path,
+			#skillmap .skills-chart .axis line {
+				fill: none;
+			}
+			#skillmap .skills-chart .x-axis path,
+			#skillmap .skills-chart .y-axis path {
+				stroke: #444;
+				stroke-width: 1px;
+				shape-rendering: geometricPrecision;
+			}
+			#include_resume{
+				border:1px solid black;
+			}
+		</style>
+	</head>
+	<body>
+		<ul class="nav">
+			<li role="presentation"><a href="#home">Home</a></li>
+			<li role="presentation"><a href="#about">About Me</a></li>
+			<li role="presentation"><a href="#skill">Skills</a></li>
+			<li role="presentation"><a href="#projects">Projects</a></li>
+			<li role="presentation"><a href="#resume">Resume</a></li>
+		</ul>
+		<div class="container" id="home">
+			<div class="jumbotron">
+				<h1>Hello, my name is Edward Lee and I'm a web developer.</h1>
+			</div>
+		</div>
+		<div class="container" id="about">
+			<div class="jumbotron">
+				<h1><small>I'm interested mostly in web development as well as game development. I aim to be a full stack web developer and am constantly learning.</small></h1>
+			</div>
+		</div>
+		<div class="container" id="skill">
+			<div class="jumbotron">
+				<h1>Skills</h1>
+				<div id="skills">
+					<div id="skillmap">
+						<div class="skills-wrapper">
+							<div class="skills-sunburst"></div>
+							<div class="skills-chart">
+								<div id="skills-chart-breadcrumb"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container" id="projects">
+			<div class="jumbotron">
+				<h1>Projects</h1>
+				<div class="row">
+					<div class="col-sm-6 col-md-4">
+						<div class="thumbnail">
+							<img src="images/gta.png" alt="GTA">
+							<div class="caption">
+								<h3>Google Thief Auto</h3>
+									<h6>Google Theft Auto is a vehicle navigation simulator. The user can drive a car on a 2D map with buildings provided by OSM. The coordinate of car is synchronized with Google Earth and the user can also drive on a 3D map.</h6>
+									<p>
+										<a target="_blank" href="https://github.com/BlueAppleRedBanana/GoogleTheftAuto" class="btn btn-primary" role="button">GitHub</a> 
+										<a target="_blank" href="projects/GTA" class="btn btn-default" role="button">Demo</a>
+									</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-md-4">
+						<div class="thumbnail">
+							<img src="images/datecoach.png" alt="Date Coach">
+							<div class="caption">
+								<h3>Data Coach</h3>
+									<h6>Date Couch provides local business review on a map. Once the user drags a marker, this application requests business information around the marker to Yelp. The response from Yelp contains business information and they are rendered on the map. The user can select a business among them and then its course is rendered on the map.</h6>
+									<p>
+										<a target="_blank" href="https://github.com/stumbledog/date-planner" class="btn btn-primary" role="button">GitHub</a> 
+										<a target="_blank" href="projects/datecoach/public/makeplan" class="btn btn-default" role="button">Demo</a>
+									</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-md-4">
+						<div class="thumbnail">
+							<img src="images/galaga.png" alt="Galaga">
+							<div class="caption">
+								<h3>Galaga</h3>
+									<h6>Galaga is a shooter arcade game. The player can control a spaceship and enemies appear from every direction. The player earns gold by destroying the enemies. The gold is used to upgrade the player’s spaceships and purchase better performance spaceships.</h6>
+									<p>
+										<a target="_blank" href="https://github.com/stumbledog/galaga-nodejs" class="btn btn-primary" role="button">GitHub</a> 
+										<a target="_blank" href="http://104.131.86.123:3001" class="btn btn-default" role="button">Demo</a>
+									</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-md-4">
+						<div class="thumbnail">
+							<img src="images/condottiere.png" alt="Condottiere">
+							<div class="caption">
+								<h3>Condottiere</h3>
+									<h6>Condottiere is a real-time strategy-action RPG game. The player can control the main character, the mouse is mainly used for moving and use character skills. The player can recruit followers who help the player in combat. As player slays monsters, the player grows in experience and ability, acquiring items of power.</h6>
+									<p>
+										<a target="_blank" href="https://github.com/stumbledog/the-condottiere" class="btn btn-primary" role="button">GitHub</a> 
+										<a target="_blank" href="http://104.131.86.123:3000" class="btn btn-default" role="button">Demo</a>
+									</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-md-4">&nbsp;</div>
+					<div class="col-sm-6 col-md-4">&nbsp;</div>
+				</div>
+			</div>
+		</div>
+		<div class="container" id="resume">
+			<div class="jumbotron">
+				<h1>Resume</h1>
+				<a href="Resume.pdf">PDF Version</a>
+				<h6>HTML Version</h6>
+				<div class="row html-resume" style="border:1px solid #000; padding:40px;">
+					<div class="row">
+						<div class="col-sm-12">
+							<h2>Edward Lee</h2>
+							<h6>Ridgefield Park, NJ &#183; 631-880-9358 &#183; <a href="mailto:stumbleduck@me.com">stumbleduck@me.com</a> &#183; <a target="_blank" href="https://github.com/stumbledog">Github</a> &#183; <a target="_blank" href="http://stackoverflow.com/users/2883143/edward-lee">s​tackoverflow</a>​</h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<hr>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3">
+							<h3>Work Experience</h3>
+						</div>
+						<div class="col-sm-9">
+							<h4 class="marginless-bottom"><span class="orange">Web Developer, Locus Telecommunications, </span><small>F​ort Lee, NJ, 2013 - Current</small></h4>
+							<h6 class="marginless-top">As a web developer, I maintain product management website, point of sales website, and Informix database server. Both websites are implemented by PHP.</h6>
+							<h4 class="marginless-bottom"><span class="orange">Web Developer, AdAsia Communications, </span><small>E​nglewood Cliffs, NJ, Summer and Fall 2012</small></h4>
+							<h6 class="marginless-top">I worked as a front end web developer intern. I created web interfaces and front end graphic stuff using Javascript and HTML5.</h6>
+						</div>
+						<div class="col-sm-12">
+							<hr>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3">
+							<h3>Skills</h3>
+						</div>
+						<div class="col-sm-3">
+							<h4 class="orange">Languages</h4>
+							<h6>Javascript<span class="right"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span></span></h6>
+							<h6>PHP<span class="right"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></span></h6>
+							<h6>HTML5<span class="right"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></span></h6>
+							<h6>CSS<span class="right"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></span></h6>
+							<h6>JAVA<span class="right"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></span></h6>
+							<h6>C/C++<span class="right"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></span></h6>
+						</div>
+						<div class="col-sm-3">
+							<h4 class="orange">Frameworks &#38; Libraries</h4>
+							<h6>Laravel(PHP), Expressjs, jQuery, CreateJS, three.js, WebGL, OpenGL, Mongoose</h6>
+						</div>
+						<div class="col-sm-3">
+							<h4 class="orange">Databases</h4>
+							<h6>MongoDB</h6>
+							<h6>MySQL</h6>
+							<h6>Informix</h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<hr>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3">
+							<h3>Projects</h3>
+						</div>
+						<div class="col-sm-9">
+							<h4 class="marginless-bottom"><span class="orange">Condottiere</span>&nbsp;<small>N​odejs, MongoDB, Createjs&nbsp;&nbsp;&nbsp;<a target="_blank" href="https://github.com/stumbledog/the-condottiere">Github</a></small></h4>
+							<h6 class="marginless-top">Condottiere is a real-time strategy-action RPG game. The player can control the main character, the mouse is mainly used for moving and use character skills. The player can recruit followers who help the player in combat. As player slays monsters, the player grows in experience and ability, acquiring items of power.</h6>
+
+							<h4 class="marginless-bottom"><span class="orange">Galaga</span>&nbsp;<small>N​odejs, MongoDB, Createjs&nbsp;&nbsp;&nbsp;<a target="_blank" href="https://github.com/stumbledog/galaga-nodejs">Github</a></small></h4>
+							<h6 class="marginless-top">Galaga is a shooter arcade game. The player can control a spaceship and enemies appear from every direction. The player earns gold by destroying the enemies. The gold is used to upgrade the player’s spaceships and purchase better performance spaceships.</h6>
+
+							<h4 class="marginless-bottom"><span class="orange">Date Coach</span>&nbsp;<small>Laravel, Mapbox, Google Map API, Yelp API&nbsp;&nbsp;&nbsp;<a target="_blank" href="https://github.com/stumbledog/date-planner">Github</a></small></h4>
+							<h6 class="marginless-top">Date Couch provides local business review on a map. Once the user drags a marker, this application requests business information around the marker to Yelp. The response from Yelp contains business information and they are rendered on the map. The user can select a business among them and then its course is rendered on the map.</h6>
+
+							<h4 class="marginless-bottom"><span class="orange">Google Theft Auto</span>&nbsp;<small>t​hree.js, OSM(Open Street Map), Google Earth&nbsp;&nbsp;&nbsp;<a target="_blank" href="https://github.com/BlueAppleRedBanana/GoogleTheftAuto">Github</a></small></h4>
+							<h6 class="marginless-top">Google Theft Auto is a vehicle navigation simulator. The user can drive a car on a 2D map with buildings provided by OSM. The coordinate of car is synchronized with Google Earth and the user can also drive on a 3D map.</h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<hr>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3">
+							<h3>Education</h3>
+						</div>
+						<div class="col-sm-9">
+							<h4 class="orange">The State University of New York at Stony Brook</h4>
+							<h6>B.S. in Computer Science&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jan, 2013</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$(function() {
+				$('a[href*=#]:not([href=#])').click(function(e) {
+					if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+						var target = $(this.hash);
+						target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+						if (target.length) {
+							$('html,body').animate({
+								scrollTop: target.offset().top
+							}, 1000);
+							return false;
+						}
+					}
+				});
+			});
+		</script>
+		<script>
+			var container, stats;
+
+			var camera, scene, renderer;
+
+			var raycaster;
+			var mouse;
+
+			var PI2 = Math.PI * 2;
+
+			var programFill = function ( context ) {
+
+				context.beginPath();
+				context.arc( 0, 0, 0.5, 0, PI2, true );
+				context.fill();
+
+			}
+
+			var programStroke = function ( context ) {
+
+				context.lineWidth = 0.025;
+				context.beginPath();
+				context.arc( 0, 0, 0.5, 0, PI2, true );
+				context.stroke();
+
+			}
+
+			var INTERSECTED;
+
+			init();
+			animate();
+
+			function init() {
+
+				container = document.createElement( 'div' );
+				container.setAttribute("class","canvas-container");
+				document.body.appendChild(container);
+
+				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.set( 0, 300, 500 );
+
+				scene = new THREE.Scene();
+				for ( var i = 0; i < 100; i ++ ) {
+
+					var particle = new THREE.Sprite( new THREE.SpriteCanvasMaterial( { color: Math.random() * 0x808080 + 0x808080, program: programStroke } ) );
+					particle.position.x = Math.random() * 800 - 400;
+					particle.position.y = Math.random() * 800 - 400;
+					particle.position.z = Math.random() * 800 - 400;
+					particle.scale.x = particle.scale.y = Math.random() * 20 + 20;
+					scene.add( particle );
+
+				}
+				
+				//
+				
+				raycaster = new THREE.Raycaster();
+				mouse = new THREE.Vector2();
+
+				renderer = new THREE.CanvasRenderer();
+				renderer.setClearColor( 0xffffff );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				stats = new Stats();
+				stats.domElement.style.position = 'fixed';
+				stats.domElement.style.bottom = '0px';
+				stats.domElement.style.right = '0px';
+				container.appendChild( stats.domElement );
+
+				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+				document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+
+				//
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				
+			}
+
+			function onDocumentMouseMove( event ) {
+
+				event.preventDefault();
+
+				mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+				mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+				if(INTERSECTED){
+					$(".container").css("cursor","pointer");
+				}else{
+					$(".container").css("cursor","default");
+				}
+
+			}
+
+			function onDocumentMouseDown( event ) {
+
+				event.preventDefault();
+
+				mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+				mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+
+				if(INTERSECTED){
+					
+					for ( var i = 0; i < 10; i ++ ) {
+						var particle = new THREE.Sprite( new THREE.SpriteCanvasMaterial( { color: Math.random() * 0x808080 + 0x808080, program: programStroke } ) );
+						
+
+						particle.position.x = INTERSECTED.position.x;
+						particle.position.y = INTERSECTED.position.y;
+						particle.position.z = INTERSECTED.position.z;
+						
+						var position_animation = new TWEEN.Tween(particle.position).to({x:particle.position.x + Math.random() * 200 - 100, y:particle.position.y + Math.random() * 200 - 100, z:particle.position.z + Math.random() * 200 - 100}, 1000).easing( TWEEN.Easing.Elastic.InOut );
+
+						var scale = Math.random() * 20 + 20
+						//var scale_animation = new TWEEN.Tween(particle.scale).to({x:scale, y:scale}, 2000);
+						particle.scale.x = particle.scale.y = scale;
+						position_animation.start();
+						//scale_animation.start();
+
+						scene.add( particle );
+					}
+
+					scene.remove( INTERSECTED );
+
+				}
+
+			}
+
+			//
+
+			function animate(time) {
+
+				requestAnimationFrame( animate );
+				render();
+				TWEEN.update(time);
+				stats.update();
+
+			}
+
+			var radius = 400;
+			var theta = 0;
+
+			function render() {
+
+				// rotate camera
+
+				theta += 0.1;
+
+				camera.position.x = radius * Math.sin( THREE.Math.degToRad( theta ) );
+				camera.position.y = radius * Math.sin( THREE.Math.degToRad( theta ) );
+				camera.position.z = radius * Math.cos( THREE.Math.degToRad( theta ) );
+				camera.lookAt( scene.position );
+
+				camera.updateMatrixWorld();
+				
+				// find intersections
+
+				raycaster.setFromCamera( mouse, camera );
+
+				var intersects = raycaster.intersectObjects( scene.children );
+
+				if ( intersects.length > 0 ) {
+
+					if ( INTERSECTED != intersects[ 0 ].object ) {
+
+						if ( INTERSECTED ) INTERSECTED.material.program = programStroke;
+
+						INTERSECTED = intersects[ 0 ].object;
+						INTERSECTED.material.program = programFill;
+
+					}
+
+				} else {
+
+					if ( INTERSECTED ) INTERSECTED.material.program = programStroke;
+
+					INTERSECTED = null;
+
+				}
+
+				renderer.render( scene, camera );
+				
+			}
+
+		</script>
+		<script src="js/skillsdata.js"></script>
+		<script src="js/skill.js"></script>
+		<script>
+			d3.select(self.frameElement).style("height", "700px");
+		</script>
+</body>
+</html>
